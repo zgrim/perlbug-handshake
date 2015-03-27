@@ -1,0 +1,25 @@
+---
+abstract: 'xxHash Implementation For Perl'
+author:
+  - 'Sanko Robinson <sanko@cpan.org>'
+build_requires:
+  ExtUtils::CBuilder: 0
+  Test::More: 0
+configure_requires:
+  Module::Build: 0.19
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4202, CPAN::Meta::Converter version 2.132140'
+license: bsd
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Digest-xxHash
+provides:
+  Digest::xxHash:
+    file: lib/Digest/xxHash.pm
+    version: 1.02
+resources:
+  bugtracker: https://github.com/sanko/digest-xxhash/issues
+  license: http://opensource.org/licenses/bsd-license.php
+  repository: https://github.com/sanko/digest-xxhash
+version: 1.02

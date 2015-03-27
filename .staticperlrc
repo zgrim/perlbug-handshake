@@ -1,0 +1,28 @@
+EMAIL="perlbug@perl.org"
+CPAN="http://ftp.ines.lug.ro/CPAN"
+
+STATICPERL="$PWD/tmp"
+DLCACHE="$PWD/dlcache"
+if [ ! -d "$STATICPERL" ]; then
+    mkdir -p "$STATICPERL" || fatal "mkdir fail"
+fi
+
+LD=gcc
+PERL_CC=gcc
+
+BUILD_DEFAULT="5.21.10"
+PERL_VERSION="${PV:-$BUILD_DEFAULT}"
+PERL_CONFIGURE="$PERL_CONFIGURE -Dusedevel -Duserelocatableinc -Dinc_version_list=none -Dman1dir=none -Dman3dir=none -Uversiononly"
+PERL_MM_USE_DEFAULT=1
+
+PERL_CCFLAGS="-DPERL_DISABLE_PMC -DPERL_ARENA_SIZE=16376 -DNO_PERL_MALLOC_ENV -D_GNU_SOURCE -DNDEBUG -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DPERL_COPY_ON_WRITE -UDEBUGGING -DPL_OP_SLAB_ALLOC -DNO_MATHOMS -DSILENT_NO_TAINT_SUPPORT"
+PERL_OPTIMIZE="-O2 -ffunction-sections -fdata-sections -fno-strict-aliasing -pipe -fomit-frame-pointer -finline-limit=8 -mpush-args -mno-inline-stringops-dynamically -mno-align-stringops"
+
+PERL_MM_OPT="INSTALLMAN1DIR=none INSTALLMAN3DIR=none MAN1PODS= MAN3PODS="
+export PERL_MM_USE_DEFAULT PERL_MM_OPT
+
+postinstall() {
+	instsrc "$STATICPERL/../ext/Digest-xxHash-1.02/"
+}
+
+# ex:ft=sh:tw=160:sw=4
